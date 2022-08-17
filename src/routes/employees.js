@@ -9,9 +9,9 @@ function employees(app) {
 
   // route, service, query => getAllEmployees
 
-  router.get("/getAllEmployees/:role", async (req, res) => {
-    const role = req.params.role;
-    const getAllEmployees = await employeeServices.getAllEmployees(role);
+  router.get("/getAllEmployees", async (req, res) => {
+    /* const role = req.params.role; */
+    const getAllEmployees = await employeeServices.getAllEmployees();
     return res
       .status(getAllEmployees.success ? 200 : 400)
       .json(getAllEmployees);
@@ -24,6 +24,13 @@ function employees(app) {
     return res
       .status(getEmployeeById.success ? 200 : 400)
       .json(getEmployeeById);
+  });
+
+  // create employee
+  router.post("/createEmployee", async (req, res) => {
+    console.log(req.body);
+    const createEmployee = await employeeServices.createEmployee(req.body);
+    return res.status(createEmployee.success ? 200 : 400).json(createEmployee);
   });
 }
 
